@@ -1,15 +1,15 @@
 <script setup>
 import EventCard from '@/components/EventCard.vue'
+import EventService from'@/services/EventService.js'
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
+
 
 const events = ref(null)
 
 onMounted(() => {
-  axios
-    .get('https://my-json-server.typicode.com/Code-pop/Real-World_Vue-3/events')
-    .then(response => {
-      console.log('events:', response.data)
+  EventService.getEvents()
+  .then(response => {
+    events.value = response.data
     })
     .catch(error => {
       console.log(error)
